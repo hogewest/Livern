@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="jp" lang="jp">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link href="/reset.css" rel="stylesheet" type="text/css" />
+  <link href="/style.css" rel="stylesheet" type="text/css" />
+  <link href="/jquery.notifyBar.css" rel="stylesheet" type="text/css" media="screen"  />
+
+  <script type="text/javascript" src="/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="/app.js"></script>
+  <script type="text/javascript" src="/jquery.notifyBar.js"></script>
+
+  <title><% yield_content :title %> - Livern</title>
+</head>
+<body>
+  <div id='header'>
+    <div id='logo'><a href='/'><h1>Livern</h1></a></div>
+    <div class='header_space'>&nbsp;</div>
+    <div id='logout'><a href='/logout' class='button'>Log out</a></div>
+  </div>
+  <div id='menu'>
+    <div id='user_profile'>
+      <img src='<%= session[:twitter][:profile_image] %>' alt='profile image' />
+      <p><%= "#{session[:twitter][:screen_name]}&nbsp;さん" %></p>
+    </div>
+    <div id='menu_list'>
+      <ul>
+        <li><a href='/' class='button large <% yield_content :enabled, '/' %>'>未読</span></a></li>
+        <li><a href='/read' class='button large <% yield_content :enabled, 'read' %>'>既読</a></li>
+        <li><a href='/entry' class='button large <% yield_content :enabled, 'entry' %>'>登録</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id='main'>
+    <%= yield %>
+  </div>
+  <div id='footer'>
+    <h3>Created by <a href='http://twitter.com/hogewest' target='_blank'>@hogewest</a></h3>
+  </div>
+</body>
+</html>

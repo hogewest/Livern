@@ -1,0 +1,40 @@
+<% content_for :title do %> 登録 <% end %>
+<% content_for :enabled do |path| %>
+  <%= 'blue' if 'entry' != path %>
+<% end %>
+<div class='search'>
+  <form method='get' action='/entry'>  
+    <label for='q'>キーワード：</label> 
+    <input type='text' name='q' maxlength='1024' size='60'  value='<%= params[:q] %>' />
+    <label for='author'>著者：</label> 
+    <input type='text' name='author' maxlength='1024' size='30' value='<%= params[:author] %>' />
+    <input type='submit' value='検索' class='button black' /> 
+  </form>
+</div>
+<%= pagination_links @page_info if params[:q] %>
+<div>
+  <%= '検索結果がありません。' if search_not_found?(@res.items.size, params[:q], params[:author]) %>
+  <% @res.items.each do |item| %>
+    <div class='item'>
+      <div class='item_image'>
+        <a href='<%= item.get('detailpageurl') %>' target='_blank'>
+          <img src='<%= image_url(item) %>' />
+        </a>
+      </div>
+      <div class='item_info'>
+        <ol>
+          <li><%= item.get('itemattributes/title') %></li>
+          <li><%= item.get_array('itemattributes/author').join(',') %></li>
+          <li><%= item.get_array('itemattributes/creator').join(',') %></li>
+          <li><%= item.get('itemattributes/manufacturer') %></li>
+          <li><%= release_date(item) %></li>
+        </ol>
+        <div class='item_change'>
+          <div class='entry button green' id='<%= item.get('asin') %>'>登録</div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class='item_clear'></div>
+</div>
+<%= pagination_links @page_info if params[:q] %>

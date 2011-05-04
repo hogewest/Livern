@@ -1,0 +1,47 @@
+<% content_for :title do %>未読<% end %>
+<% content_for :enabled do |path| %>
+  <%= 'blue' if '/' != path %>
+<% end %>
+<div class='search'>
+  <form method='get' action='/'>  
+    <label for='q'>タイトル：</label> 
+    <input type='text' name='q' maxlength='1024' size='60' value='<%= params[:q] %>' />
+    <label for='author'>著者：</label> 
+    <input type='text' name='author' maxlength='1024' size='30' value='<%= params[:author] %>' />
+    <input type='submit' value='検索' class='button black' /> 
+  </form>
+</div>
+<%= pagination_links @page_info %>
+<div>
+  <%= 'データがありません。' if @items.size <= 0 %>
+  <% @items.each do |item| %>
+    <div class='item'>
+      <div class='item_image'>
+        <a href='<%= item.detail_page_url %>' target='_blank'>
+          <img src='<%= item.image_url %>' />
+        </a>
+      </div>
+      <div class='item_info'>
+        <ol>
+          <li><%= item.title %></li>
+          <li><%= item.author %></li>
+          <li><%= item.creator %></li>
+          <li><%= item.manufacturer %></li>
+          <li><%= item.release_date %></li>
+        </ol>
+        <div class='item_change'>
+          <form method='post' action='/delete' class='delete_form'>
+            <input type='submit' value='削除する' class='button red' onclick="return confirm('削除してよろしいですか？');" />
+            <input type='hidden' name='asin' value='<%= item.asin %>' />
+          </form>
+          <form method='post' action='/read' class="read_form">
+            <input type='submit' value='既読にする' class='button green' onclick="return confirm('既読にしてよろしいですか？');" />
+            <input type='hidden' name='asin' value='<%= item.asin %>' />
+          </form>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class='item_clear'></div>
+</div>
+<%= pagination_links @page_info %>

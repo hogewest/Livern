@@ -1,0 +1,7 @@
+amazon_ecs:
+ acces_key: 'YOUR_AMAZON_ACCES_KEY'
+ secret_acces_key: 'YOUR_AMAZON_SECRET_ACCES_KEY'
+twitter:
+ consumer_token: 'YOUR_TWITTER_CONSUMER_TOKEN'
+ consumer_secret: 'YOUR_TWITTER_COUNSUMER_SECRET'
+root_url: 'http://localhost:9292'
